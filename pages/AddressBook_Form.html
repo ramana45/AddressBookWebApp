@@ -29,17 +29,24 @@
 
             <div class="row-content">
                 <label for="fullName" class="label text">Full Name</label>
-                <input type="text" class="input" id="fullName" name="fullName" required>
-                <error-output class="text-error" for="text"></error-output>
+                <div class="error-div">
+                    <input type="text" class="input" id="fullName" name="fullName" required>
+                    <error-output class="text-error" for="text"></error-output>
+                </div>
             </div>
             <div class="row-content">
                 <label for="tel" class="label text">Phone Number</label>
-                <input type="tel" id="tel" name="tel" class="input" required>
-                <error-output class="mobno-error" for="tel"></error-output>
+                <div class="error-div">
+                    <input type="tel" id="tel" name="tel" class="input" required>
+                    <error-output class="mobno-error" for="tel"></error-output>
+                </div>   
             </div>
             <div class="row-content">
                 <label for="address" class="label text">Address</label>
-                <textarea class="input text" name="address" id="address" style="height: 104px;" required></textarea>
+                <div class="error-div">
+                    <textarea class="input text" name="address" id="address" style="height: 104px;" required></textarea>
+                    <error-output class="address-error" for="address"></error-output>
+                </div>
             </div>
             <div class="select-items">
                 <div name="citySelect" id="citySelect" class="selectDiv">
@@ -60,21 +67,14 @@
                         <option value="Maharashtra">Maharashtra</option>
                     </select>
                 </div>
-                <!-- <div name="zipSelect" id="zipSelect">
-                    <label for="zip" class="label text">ZipCode</label>
-                    <select name="zip" id="zip">
-                        <option value="">Select ZipCode</option>
-                        <option value="500001">500001</option>
-                        <option value="600001">600001</option>
-                        <option value="700001">700001</option>
-                    </select>
-                </div> -->
-                <div name="zip" id="zip">
-                    <label for="zip" class="label text">Zip Code</label>
-                    <input class="input" type="tel" id="zip" name="zip" required>
-                </div>
+            <div name="zip" id="zip">
+                <label for="zip" class="label text">Zip Code</label>
+                <input class="input" type="tel" id="zip" name="zip" required>
+            </div>
             </div>
         </form>
     </div>
+    <script src="../js/AddressBook_Contact.js"></script>
+    <script src="../js/AddressBook_Form.js"></script>
 </body>
 </html>
