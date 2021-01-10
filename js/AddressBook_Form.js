@@ -53,6 +53,8 @@ const save = (event) => {
     try {
         setAddressBookContactObject();
         createAddressBookContactData();
+        createAndUpdateLocalStorage();
+        window.location.replace(site_properties.home_page);
     } catch (e) {
         alert(e);
         return;
@@ -107,4 +109,14 @@ const setContactData = (contactData) => {
 const setTextValue = (id, value) => {
     const element = document.querySelector(id);
     element.textContent = value;
+}
+
+const createAndUpdateLocalStorage = () => {
+    let addressBookList = JSON.parse(localStorage.getItem("AddressBookList"));
+    if (addressBookList) {
+        addressBookList.push(createAddressBookContactData());
+    } else {
+        addressBookList = [createAddressBookContactData()];
+    }
+    localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
 }
