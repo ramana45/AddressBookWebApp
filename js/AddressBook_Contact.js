@@ -63,8 +63,8 @@ class AddressBookContact {
 
     //Methods
     toString() {
-        return '[ FullName : ' + this.fullName + ' Address : '
-            + this.address + ' City : ' + this.city + ' State : ' + this.state + ' Zip : ' + this.zip +
+        return '[ FullName : ' + this._fullName + ' Address : '
+            + this.address + ' City : ' + this._city + ' State : ' + this.state + ' Zip : ' + this.zip +
             ' Phone Number : ' + this.phoneNumber + ' ]';
     }
 }

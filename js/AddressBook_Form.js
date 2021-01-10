@@ -52,6 +52,7 @@ const save = (event) => {
     event.stopPropagation();
     try {
         setAddressBookContactObject();
+        createAddressBookContactData();
     } catch (e) {
         alert(e);
         return;
@@ -70,4 +71,40 @@ const setAddressBookContactObject = () => {
 const getInputValueById = (id) => {
     let value = document.querySelector(id).value;
     return value;
+}
+
+const createAddressBookContactData = () => {
+    let contactData = new AddressBookContact();
+    setContactData(contactData);
+    return contactData;
+}
+
+const setContactData = (contactData) => {
+    try {
+        contactData.fullName = addressBookContactJSONObject._fullName;
+    } catch (e) {
+        setTextValue('.text-error', e);
+        throw e;
+    }
+    try {
+        contactData.address = addressBookContactJSONObject._address;
+    } catch (e) {
+        setTextValue('.address-error', e);
+        throw e;
+    }
+    try {
+        contactData.phoneNumber = addressBookContactJSONObject._phoneNumber;
+    } catch (e) {
+        setTextValue('.mobno-error', e);
+        throw e;
+    }
+    contactData.city = addressBookContactJSONObject._city;
+    contactData.state = addressBookContactJSONObject._state;
+    contactData.zip = addressBookContactJSONObject._zip;
+    alert(contactData.toString());
+}
+
+const setTextValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.textContent = value;
 }
