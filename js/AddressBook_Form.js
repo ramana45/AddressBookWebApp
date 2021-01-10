@@ -120,3 +120,17 @@ const createAndUpdateLocalStorage = () => {
     }
     localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
 }
+
+const resetForm = () => {
+    setValue('#fullName', '');
+    setValue('#address', '');
+    setValue('#tel', '');
+    setValue('#city', '');
+    setValue('#state', '');
+    setValue('#zip', '');
+}
+
+const setValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.value = value;
+}
