@@ -12,7 +12,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
             (new AddressBookContact()).fullName = fullName.value;
             textError.textContent = "";
         } catch (e) {
-            alert(e);
             textError.textContent = e;
         }
     });

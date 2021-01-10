@@ -17,6 +17,7 @@ const createInnerHtml = () => {
         "<th>City</th><th>State</th><th>Zip Code</th><th>Phone Number</th><th>Actions</th>";
     let innerHtml = `${headerHtml}`;
     for (const contact of contactListLocalStorage) {
+        contact._id = contactListLocalStorage.indexOf(contact);
         innerHtml = `${innerHtml}
 <tr>
     <td>${contact._fullName}</td>
@@ -34,3 +35,15 @@ const createInnerHtml = () => {
     }
     document.querySelector('#table-display').innerHTML = innerHtml;
 }
+
+const remove = (node) => {
+    let contact = contactListLocalStorage.find(contactInList => contactInList._id == node.id);
+    if (!contact) return;
+    const index = contactListLocalStorage
+                        .map(contactInList => contactInList._id)
+                        .indexOf(contact._id);
+    contactListLocalStorage.splice(index, 1);
+    localStorage.setItem("AddressBookList", JSON.stringify(contactListLocalStorage));
+    document.querySelector(".contact-count").textContent = contactListLocalStorage.length;
+    createInnerHtml();
+} 
