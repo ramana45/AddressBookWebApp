@@ -1,14 +1,22 @@
+let contactListLocalStorage;
+
 window.addEventListener('DOMContentLoaded', (event) => {
+    contactListLocalStorage = getContactListFromLocalStorage();
     createInnerHtml();
+    document.querySelector(".contact-count").textContent = contactListLocalStorage.length;
 });
 
+const getContactListFromLocalStorage = () => {
+    return localStorage.getItem('AddressBookList') ?
+        JSON.parse(localStorage.getItem('AddressBookList')) : [];
+}
+
 const createInnerHtml = () => {
+    if (contactListLocalStorage.length == 0) return;
     const headerHtml = "<th>Full Name</th><th>Address</th>" +
         "<th>City</th><th>State</th><th>Zip Code</th><th>Phone Number</th><th>Actions</th>";
-    let contactList = createJsonObjects();
-    if (contactList.length == 0) return;
     let innerHtml = `${headerHtml}`;
-    for (const contact of contactList) {
+    for (const contact of contactListLocalStorage) {
         innerHtml = `${innerHtml}
 <tr>
     <td>${contact._fullName}</td>
@@ -25,28 +33,4 @@ const createInnerHtml = () => {
     `;
     }
     document.querySelector('#table-display').innerHTML = innerHtml;
-}
-
-const createJsonObjects = () => {
-    let contactJsonList = [
-        {
-            _id: '1',
-            _fullName: 'Rohit Sharma',
-            _phoneNumber: '9876543212',
-            _address: 'Rajiv chowk',
-            _city: 'Pune',
-            _state: 'Maharashtra',
-            _zip: '700001'
-        },
-        {
-            _id: '2',
-            _fullName: 'Smriti Mandhana',
-            _phoneNumber: '9898989898',
-            _address: 'colony',
-            _city: 'Visakhapatnam',
-            _state: 'Andhra Pradesh',
-            _zip: '500001'
-        }
-    ];
-    return contactJsonList;
 }
