@@ -1,3 +1,4 @@
+let isUpdate = false;
 let addressBookContactJSONObject = {};
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -45,6 +46,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
             addressError.textContent = e;
         }
     });
+
+    checkForUpdate();
 });
 
 const save = (event) => {
@@ -133,4 +136,21 @@ const resetForm = () => {
 const setValue = (id, value) => {
     const element = document.querySelector(id);
     element.value = value;
+}
+
+const checkForUpdate = () => {
+    const contactJson = localStorage.getItem('editContact');
+    isUpdate = contactJson ? true : false;
+    if (!isUpdate) return;
+    addressBookContactJSONObject = JSON.parse(contactJson);
+    setForm();
+}
+
+const setForm = () => {
+    setValue('#fullName', addressBookContactJSONObject._fullName);
+    setValue('#address', addressBookContactJSONObject._address);
+    setValue('#tel', addressBookContactJSONObject._phoneNumber);
+    setValue('#city', addressBookContactJSONObject._city);
+    setValue('#state', addressBookContactJSONObject._state);
+    setValue('#zip', addressBookContactJSONObject._zip);
 }
