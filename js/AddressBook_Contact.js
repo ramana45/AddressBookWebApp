@@ -1,12 +1,8 @@
 class AddressBookContact {
 
+    id;
+
     //Getters & Setters
-    get id() {
-        return this._id;
-    }
-    set id(id){
-        this._id = id;
-    }
 
     get fullName() {
         return this._fullName;
@@ -63,7 +59,7 @@ class AddressBookContact {
 
     //Methods
     toString() {
-        return '[ID :' + this._id + ' FullName : ' + this._fullName + ' Address : '
+        return '[ FullName : ' + this._fullName + ' Address : '
             + this.address + ' City : ' + this._city + ' State : ' + this.state + ' Zip : ' + this.zip +
             ' Phone Number : ' + this.phoneNumber + ' ]';
     }

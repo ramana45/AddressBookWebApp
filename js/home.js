@@ -18,7 +18,6 @@ const createInnerHtml = () => {
         "<th>City</th><th>State</th><th>Zip Code</th><th>Phone Number</th><th>Actions</th>";
     let innerHtml = `${headerHtml}`;
     for (const contact of contactListLocalStorage) {
-        contact._id = contactListLocalStorage.indexOf(contact);
         innerHtml = `${innerHtml}
 <tr>
     <td>${contact._fullName}</td>
@@ -28,8 +27,8 @@ const createInnerHtml = () => {
     <td>${contact._zip}</td>
     <td>${contact._phoneNumber}</td>
     <td>
-        <img src="../assets/icons/delete-black-18dp.svg" alt="delete" id="${contact._id}" onclick="remove(this)">
-        <img src="../assets/icons/create-black-18dp.svg" alt="edit" id="${contact._id}" onclick="update(this)">
+        <img src="../assets/icons/delete-black-18dp.svg" alt="delete" id="${contact.id}" onclick="remove(this)">
+        <img src="../assets/icons/create-black-18dp.svg" alt="edit" id="${contact.id}" onclick="update(this)">
     </td>
 </tr>
     `;
@@ -38,11 +37,11 @@ const createInnerHtml = () => {
 }
 
 const remove = (node) => {
-    let contact = contactListLocalStorage.find(contactInList => contactInList._id == node.id);
+    let contact = contactListLocalStorage.find(contactInList => contactInList.id == node.id);
     if (!contact) return;
     const index = contactListLocalStorage
-                        .map(contactInList => contactInList._id)
-                        .indexOf(contact._id);
+                        .map(contactInList => contactInList.id)
+                        .indexOf(contact.id);
     contactListLocalStorage.splice(index, 1);
     localStorage.setItem("AddressBookList", JSON.stringify(contactListLocalStorage));
     document.querySelector(".contact-count").textContent = contactListLocalStorage.length;
@@ -50,7 +49,7 @@ const remove = (node) => {
 } 
 
 const update = (node) => {
-    let contact = contactListLocalStorage.find(contactInList => contactInList._id == node.id);
+    let contact = contactListLocalStorage.find(contactInList => contactInList.id == node.id);
     if (!contact) return;
     localStorage.setItem('editContact', JSON.stringify(contact));
     window.location.replace(site_properties.add_address_book_form_page);
