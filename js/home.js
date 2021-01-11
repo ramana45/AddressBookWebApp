@@ -1,23 +1,42 @@
-let contactListLocalStorage;
+let contactList;
 
 window.addEventListener('DOMContentLoaded', (event) => {
-    contactListLocalStorage = getContactListFromLocalStorage();
-    createInnerHtml();
-    document.querySelector(".contact-count").textContent = contactListLocalStorage.length;
-    localStorage.removeItem('editContact');
+    if(site_properties.use_local_storage.match("true")) {
+        getContactListFromLocalStorage();
+    } else getContactListFromServer();
 });
 
 const getContactListFromLocalStorage = () => {
-    return localStorage.getItem('AddressBookList') ?
-        JSON.parse(localStorage.getItem('AddressBookList')) : [];
+    contactList = localStorage.getItem('AddressBookList') ?
+    JSON.parse(localStorage.getItem('AddressBookList')) : [];
+    processcontactListDataResponse();
+}
+
+const processcontactListDataResponse = () => {
+    document.querySelector(".contact-count").textContent = contactList.length;
+    createInnerHtml();
+    localStorage.removeItem('editContact');
+}
+
+const getContactListFromServer = () => {
+    makeServiceCall("GET", site_properties.server_url, true)
+        .then(responseText => {
+            contactList = JSON.parse(responseText);
+            processcontactListDataResponse();
+        })
+        .catch(error => {
+            console.log("GET Error Status: " + JSON.stringify(error));
+            contactList = [];
+            processcontactListDataResponse();
+        })
 }
 
 const createInnerHtml = () => {
-    if (contactListLocalStorage.length == 0) return;
+    if (contactList.length == 0) return;
     const headerHtml = "<th>Full Name</th><th>Address</th>" +
         "<th>City</th><th>State</th><th>Zip Code</th><th>Phone Number</th><th>Actions</th>";
     let innerHtml = `${headerHtml}`;
-    for (const contact of contactListLocalStorage) {
+    for (const contact of contactList) {
         innerHtml = `${innerHtml}
 <tr>
     <td>${contact._fullName}</td>
@@ -37,19 +56,19 @@ const createInnerHtml = () => {
 }
 
 const remove = (node) => {
-    let contact = contactListLocalStorage.find(contactInList => contactInList.id == node.id);
+    let contact = contactList.find(contactInList => contactInList.id == node.id);
     if (!contact) return;
-    const index = contactListLocalStorage
+    const index = contactList
                         .map(contactInList => contactInList.id)
                         .indexOf(contact.id);
-    contactListLocalStorage.splice(index, 1);
-    localStorage.setItem("AddressBookList", JSON.stringify(contactListLocalStorage));
-    document.querySelector(".contact-count").textContent = contactListLocalStorage.length;
+    contactList.splice(index, 1);
+    localStorage.setItem("AddressBookList", JSON.stringify(contactList));
+    document.querySelector(".contact-count").textContent = contactList.length;
     createInnerHtml();
 } 
 
 const update = (node) => {
-    let contact = contactListLocalStorage.find(contactInList => contactInList.id == node.id);
+    let contact = contactList.find(contactInList => contactInList.id == node.id);
     if (!contact) return;
     localStorage.setItem('editContact', JSON.stringify(contact));
     window.location.replace(site_properties.add_address_book_form_page);
