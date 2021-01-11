@@ -1,0 +1,31 @@
+{
+  "AddressBookDB": [
+    {
+      "id": 1,
+      "_fullName": "Ramana",
+      "_address": "colony",
+      "_phoneNumber": 9999999999,
+      "_city": "Hyderabad",
+      "_state": "Telangana",
+      "_zip": "500001"
+    },
+    {
+      "id": 2,
+      "_fullName": "Smriti",
+      "_address": "chowk",
+      "_phoneNumber": 9876543212,
+      "_city": "Pune",
+      "_state": "Maharashtra",
+      "_zip": "600001"
+    },
+    {
+      "_fullName": "Rohit",
+      "_address": "street",
+      "_phoneNumber": "9999999999",
+      "_city": "Visakhapatnam",
+      "_state": "Andhra Pradesh",
+      "_zip": "500001",
+      "id": 3
+    }
+  ]
+}

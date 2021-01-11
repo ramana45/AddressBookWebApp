@@ -52,14 +52,32 @@ const save = (event) => {
     event.stopPropagation();
     try {
         setAddressBookContactObject();
-        createAndUpdateLocalStorage();
-        resetForm();
-        window.location.replace(site_properties.home_page);
+        if(site_properties.use_local_storage.match("true")) {
+            createAndUpdateLocalStorage();
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        } else {
+            createOrUpdateAddressBookList();
+        }
     } catch (e) {
         alert(e);
         return;
     }
 }
+
+const createOrUpdateAddressBookList = () => {
+    let postURL = site_properties.server_url;
+    let methodCall = "POST";
+    makeServiceCall(methodCall, postURL, true, addressBookContactJSONObject)
+        .then(responseText => {
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        })
+        .catch(error => {
+            throw error;
+        });    
+}
+
 
 const setAddressBookContactObject = () => {
     if(!isUpdate && site_properties.use_local_storage.match("true")) {
