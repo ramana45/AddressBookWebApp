@@ -55,8 +55,8 @@ const save = (event) => {
     event.stopPropagation();
     try {
         setAddressBookContactObject();
-        createAddressBookContactData();
         createAndUpdateLocalStorage();
+        resetForm();
         window.location.replace(site_properties.home_page);
     } catch (e) {
         alert(e);
@@ -78,8 +78,30 @@ const getInputValueById = (id) => {
     return value;
 }
 
-const createAddressBookContactData = () => {
+const createAndUpdateLocalStorage = () => {
+    let contactList  = JSON.parse(localStorage.getItem("AddressBookList"));
+    if (contactList ) {
+        let contactData = contactList 
+                            .find(contact => contact._id == addressBookContactJSONObject._id);
+        if(!contactData) {
+            contactList.push(createAddressBookContactData());
+        }
+        else {
+            const index = contactList
+                            .map(contact => contact._id)
+                            .indexOf(contactData._id);
+            contactList.splice(index, 1, createAddressBookContactData(contactData._id));
+        }
+    } else {
+        contactList = [createAddressBookContactData()];
+    }
+    localStorage.setItem("AddressBookList", JSON.stringify(contactList));
+}
+
+const createAddressBookContactData = (id) => {
     let contactData = new AddressBookContact();
+    if (!id) contactData._id = createNewContactId();
+    else contactData._id = id;
     setContactData(contactData);
     return contactData;
 }
@@ -114,16 +136,6 @@ const setTextValue = (id, value) => {
     element.textContent = value;
 }
 
-const createAndUpdateLocalStorage = () => {
-    let addressBookList = JSON.parse(localStorage.getItem("AddressBookList"));
-    if (addressBookList) {
-        addressBookList.push(createAddressBookContactData());
-    } else {
-        addressBookList = [createAddressBookContactData()];
-    }
-    localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
-}
-
 const resetForm = () => {
     setValue('#fullName', '');
     setValue('#address', '');
@@ -153,4 +165,11 @@ const setForm = () => {
     setValue('#city', addressBookContactJSONObject._city);
     setValue('#state', addressBookContactJSONObject._state);
     setValue('#zip', addressBookContactJSONObject._zip);
+}
+
+const createNewContactId = () => {
+    let contactId = localStorage.getItem("ContactID");
+    contactId = !contactId ? 1 : (parseInt(contactId) + 1).toString();
+    localStorage.setItem("ContactID", contactId);
+    return contactId;
 }
