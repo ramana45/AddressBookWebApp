@@ -17,15 +17,6 @@
       "_city": "Pune",
       "_state": "Maharashtra",
       "_zip": "600001"
-    },
-    {
-      "_fullName": "Rohit",
-      "_address": "street",
-      "_phoneNumber": "9999999999",
-      "_city": "Visakhapatnam",
-      "_state": "Telangana",
-      "_zip": "500001",
-      "id": 3
     }
   ]
 }
