@@ -3,10 +3,10 @@
     {
       "id": 1,
       "_fullName": "Ramana",
-      "_address": "colony",
-      "_phoneNumber": 9999999999,
-      "_city": "Hyderabad",
-      "_state": "Telangana",
+      "_address": "new colony",
+      "_phoneNumber": "9999999999",
+      "_city": "Hyderabd",
+      "_state": "Andhra Pradesh",
       "_zip": "500001"
     },
     {
@@ -23,7 +23,7 @@
       "_address": "street",
       "_phoneNumber": "9999999999",
       "_city": "Visakhapatnam",
-      "_state": "Andhra Pradesh",
+      "_state": "Telangana",
       "_zip": "500001",
       "id": 3
     }

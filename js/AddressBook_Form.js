@@ -68,6 +68,10 @@ const save = (event) => {
 const createOrUpdateAddressBookList = () => {
     let postURL = site_properties.server_url;
     let methodCall = "POST";
+    if(isUpdate) {
+        methodCall = "PUT";
+        postURL = postURL + '/' + addressBookContactJSONObject.id.toString();
+    }
     makeServiceCall(methodCall, postURL, true, addressBookContactJSONObject)
         .then(responseText => {
             resetForm();
